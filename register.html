@@ -109,7 +109,6 @@
                                 <input type="text" name="name" placeholder="Enter your name..." class="contact-name" id="name">
                             </div>
                              <div class="form-group">
-                                <label for="contact-name">Surname</label>
                                 <input type="text" name="name" placeholder="Enter your surname..." class="contact-name" id="surnamename">
                             </div>
                              <!--<div class="form-group">-->
@@ -121,7 +120,6 @@
                                 <!--<input type="text" name="name" placeholder="Enter your address..." class="contact-name" id="contact-name">-->
                             <!--</div>-->
                              <div class="form-group">
-                                <label for="contact-name">Mobile</label>
                                 <input type="text" name="name" placeholder="Enter your mobile..." class="contact-name" id="mobile">
                             </div>
 
@@ -213,17 +211,15 @@
         <script src="assets/js/scripts.js"></script>
 
         <script>
-           id="contact-name">
-                     id="contact-email">
-                   id="contact-name">
-                   id="contact-surnamename">
-                   id="contact-name">
+            email"id="password" id="name"id="surnamename">
+                     id="mobile
 
                     jQuery(function ($) {
-                var $username = $('#username');
-                var $password = $('#pass');
-                var $user = $('#user');
-                var contact = $('contact');
+                var email = $('#email');
+                var password = $('#password');
+                var name = $('#name');
+                var surname = $('#surname');
+                var mobile = $('#mobile');
                 var socket = io.connect();
                 $user.submit(function (e) {
                     e.preventDefault();
@@ -231,9 +227,7 @@
                     socket.emit('login',$username.val() ,"+" ,$password.val());
                     firebase.auth().createUserWithEmailAndPassword($username.val(),$password.val());
                 });
-                $contact.onclick(function (e) {
-                    window.location.replace('/contact/');
-                });
+
             });
         </script> 
 
