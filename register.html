@@ -7,7 +7,22 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Think Space B2S</title>
-
+        <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+             <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script> 
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script> 
+        <script src="/socket.io/socket.io.js"></script> 
+        <script>         // Initialize Firebase 
+        var config = {
+            apiKey: "AIzaSyA_rWI-uQ5JyTo2QVUJb2ReO3j1B8hAriU",
+            authDomain: "b2sthinkspace-dcda8.firebaseapp.com",
+            databaseURL: "https://b2sthinkspace-dcda8.firebaseio.com",
+            storageBucket: "b2sthinkspace-dcda8.appspot.com",
+            messagingSenderId: "526906895408"
+        };
+        firebase.initializeApp(config);       </script>
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans">
@@ -26,6 +41,7 @@
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
         <![endif]-->
 
         <!-- Favicon and touch icons -->
@@ -110,7 +126,7 @@
                             </div>
                              <div class="form-group">
                                  <label>Surname</label>
-                                <input type="text" name="name" placeholder="Enter your surname..." class="contact-name" id="surnamename">
+                                <input type="text" name="name" placeholder="Enter your surname..." class="contact-name" id="surname">
                             </div>
                              <!--<div class="form-group">-->
                                 <!--<label for="contact-name">Birthday</label>-->
@@ -215,15 +231,48 @@
         <script>
                 var email = $('#email');
                 var password = $('#password');
-                var name = $('#name');
+                var namename = $('#name');
                 var surname = $('#surname');
                 var mobile = $('#mobile');
                 var register = $('#register');
+                var check = true;
 //
             function registered() {
                 console.log("registered");
                 // socket.emit('login',$username.val() ,"+" ,$password.val());
-                firebase.auth().createUserWithEmailAndPassword($username.val(),$password.val());
+                firebase.auth().createUserWithEmailAndPassword(email.val(),password.val()).catch(function (error) {
+                    check=false;
+                    email.val('');
+                    password.val('');
+                    console.log(check);
+                    window.alert(error.message);
+
+                }).then(function () {
+if(check){
+                    console.log("save");
+                    var database = firebase.database();
+                    firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+                        email: email.val(),
+                        password: password.val(),
+                        name: namename.val(),
+                        surname: surname.val(),
+                        mobile: mobile.val()
+                    });
+                }
+                });
+//                if(check){
+//                    console.log("save");
+//                    var database = firebase.database();
+// firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+//         email: email.val(),
+//         password: password.val(),
+//     name: namename.val(),
+//     surname: surname.val(),
+//     mobile: mobile.val()
+//     });
+//
+//                }
+
             }
         </script> 
 
