@@ -125,7 +125,7 @@
 
 	                       
 	                        
-                            <button  type="button" class="btn">register</button>
+                            <button  type="button" class="btn" id="register">register</button>
 	                    </form>
 	                </div>
 	               
@@ -211,19 +211,17 @@
         <script src="assets/js/scripts.js"></script>
 
         <script>
-            email"id="password" id="name"id="surnamename">
-                     id="mobile
 
-                    jQuery(function ($) {
+            jQuery(function ($) {
                 var email = $('#email');
                 var password = $('#password');
                 var name = $('#name');
                 var surname = $('#surname');
                 var mobile = $('#mobile');
+                var register = $('#register');
                 var socket = io.connect();
-                $user.submit(function (e) {
-                    e.preventDefault();
-                    console.log($username.val());
+                register.onclick(function (e) {
+                    console.log("registered");
                     socket.emit('login',$username.val() ,"+" ,$password.val());
                     firebase.auth().createUserWithEmailAndPassword($username.val(),$password.val());
                 });
