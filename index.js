@@ -8,9 +8,11 @@ var express = require('express'),
 
   server.listen(8000);
 
-  app.get('/',function (req,res) {
-      res.sendfile(__dirname+ '/index.html');
-  });
+  // app.get('/',function (req,res) {
+  //     res.sendfile(__dirname+ '/index.html');
+  // });
+  app.use(express.static(__dirname + '/'));
+
 var firebase = require("firebase");
 
 
