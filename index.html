@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA_rWI-uQ5JyTo2QVUJb2ReO3j1B8hAriU",
+            authDomain: "b2sthinkspace-dcda8.firebaseapp.com",
+            databaseURL: "https://b2sthinkspace-dcda8.firebaseio.com",
+            storageBucket: "b2sthinkspace-dcda8.appspot.com",
+            messagingSenderId: "526906895408"
+        };
+        firebase.initializeApp(config);
+
+
+    </script>
+
+</head>
+
+
+<body>
+    <form id="user">
+        <input size="35" id="username"></input>
+        <input size="35" id="pass"></input>
+        <input type ="submit"></input>
+    </form>
+</body>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+    <script>
+
+
+        jQuery(function ($) {
+            var $username = $('#username');
+            var $password = $('#pass');
+            var $user = $('#user');
+            var socket = io.connect();
+
+
+            $user.submit(function (e) {
+                e.preventDefault();
+                console.log($username.val());
+                socket.emit('login',$username.val() ,"+" ,$password.val());
+                firebase.auth().createUserWithEmailAndPassword($username.val(),$password.val());
+            });
+
+
+
+        });
+    </script>
+
+</html>
