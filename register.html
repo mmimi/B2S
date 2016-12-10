@@ -108,6 +108,7 @@
                                 <label>Name</label>
                                 <input type="text" name="name" placeholder="Enter your name..." class="contact-name" id="name">
                             </div>
+                             <label>Surname</label>
                              <div class="form-group">
                                 <input type="text" name="name" placeholder="Enter your surname..." class="contact-name" id="surnamename">
                             </div>
@@ -120,6 +121,7 @@
                                 <!--<input type="text" name="name" placeholder="Enter your address..." class="contact-name" id="contact-name">-->
                             <!--</div>-->
                              <div class="form-group">
+                                <label>Mobile</label>
                                 <input type="text" name="name" placeholder="Enter your mobile..." class="contact-name" id="mobile">
                             </div>
 
@@ -220,7 +222,7 @@
                 var mobile = $('#mobile');
                 var register = $('#register');
                 var socket = io.connect();
-                register.onclick(function (e) {
+                register.click(function (e) {
                     console.log("registered");
                     socket.emit('login',$username.val() ,"+" ,$password.val());
                     firebase.auth().createUserWithEmailAndPassword($username.val(),$password.val());
