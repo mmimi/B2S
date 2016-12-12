@@ -110,12 +110,41 @@
                 <div class="col-sm-6 contact-form wow fadeInLeft">
 
 
+                    <img class="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg" />
+                    <button type ="button" onclick="upload()" class="upload-button">Upload Image</button>
+                    <input class="file-upload" type="file" accept="image/*"/>
                             <h3 id="name" >Name : </h3>
                     <!--<p id="name"></p>-->
                             <h3 id="surname"> Surname : </h3>
 
 
                 </div>
+                <script>
+                $(document).ready(function() {
+
+
+                var readURL = function(input) {
+                if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+                }
+                }
+
+
+                $(".file-upload").on('change', function(){
+                readURL(this);
+                });
+
+                $(".upload-button").on('click', function() {
+                $(".file-upload").click();
+                });
+                });
+                </script>
             </div>
 <div style="margin-right: 20px;">
                 <div class="btn-group-vertical" style="float:right ;" >
@@ -135,7 +164,7 @@
 	            <div class="row">
 	                <h3 id="points"> Point : </h3>
                      <h3> Booking information : </h3>
-                    <button type="button"  class="btn">cancel booking</button>
+
 
 
                     <div class="col-sm-7 contact-form wow fadeInLeft">
@@ -179,7 +208,7 @@
                     <div class="col-sm-4 footer-box wow fadeInUp">
                         <h4>Follow us</h4>
                         <div class="footer-box-text footer-box-text-contact">
-                            <p><i class="fa fa-facebook"></i> ThinkSpaceB2S</p>
+                            <a href="https://www.facebook.com/thinkspaceb2s"><i class="fa fa-facebook"></i> ThinkSpaceB2S</a>
                         </div>
                     </div>
 
@@ -233,6 +262,10 @@
                 });
             }
         });
+
+        function upload() {
+            console.log("uppic");
+        }
 
         function signout(){
             window.alert("Out");
