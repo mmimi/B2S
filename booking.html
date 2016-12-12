@@ -1,13 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Think Space B2S</title>
 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Think Space B2S</title>
     <!-- CSS -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans">
@@ -20,13 +19,18 @@
     <link rel="stylesheet" href="assets/css/form-elements.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/media-queries.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+    </script>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 
     <!-- Favicon and touch icons -->
     <link rel="icon" href="assets/ico/icon.png">
@@ -34,11 +38,8 @@
     <link rel="icon2" sizes="114x114" href="assets/ico/icon2.png">
     <link rel="icon3" sizes="72x72" href="thinkspace/assets/ico/icon3.png">
 
-
 </head>
-
 <body>
-
 <!-- Top menu -->
 <nav class="navbar" role="navigation">
     <div class="container">
@@ -63,8 +64,8 @@
                 <li>
                     <a href="contact.html"><i class="fa fa-envelope"></i><br>Contact</a>
                 </li>
-                <li>
-                    <a href="login.html"><i class="fa fa-user"></i><br>Login</a>
+                <li class="active">
+                    <a href="login.html" ><i class="fa fa-user"></i><br>Login</a>
                 </li>
 
 
@@ -77,168 +78,90 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 wow fadeIn">
-                <i class="fa fa-envelope"></i>
+                <i class="fa fa-user"></i>
                 <h1>Booking </h1>
 
             </div>
         </div>
     </div>
 </div>
+<br>
+<p>Date: <input type="text" id="datepicker"></p>
+<div class="form-group">
+    <label for="contact-email">PEOPLE</label>
+    <select>
+        <option id="1">1</option>
+        <option id="2">2</option>
+        <option id="3">3</option>
+        <option id="4">4</option>
+        <option id="5">5</option>
+        <option id="6">6</option>
+        <option id="7">7</option>
+        <option id="8">8</option>
+        <option id="9">9</option>
+        <option id="10">10</option>
+        <option id="11">11</option>
+        <option id="12">12</option>
+        <option id="13">13</option>
+        <option id="14">14</option>
+        <option id="15">15</option>
+        <option id="16">16</option>
+        <option id="17">17</option>
+        <option id="18">18</option>
+        <option id="19">19</option>
+        <option id="20">20</option>
+        <option id="21">21</option>
+        <option id="22">22</option>
+        <option id="23">23</option>
+        <option id="24">24</option>
+        <option id="25">25</option>
+        <option id="26">26</option>
+        <option id="27">27</option>
+        <option id="28">28</option>
+        <option id="29">29</option>
+        <option id="30">30</option>
 
-<!-- Contact Us -->
-<div class="contact-us-container">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-7 contact-form wow fadeInLeft">
-
-                <form role="form" action="assets/contact.php" method="post">
-                    <div class="form-group">
-                        <label for="contact-name" >TIME</label>
-                        <select id ="start">
-                            <option id="10.00">10.00</option>
-                            <option id="11.00">11.00</option>
-                            <option id="12.00">12.00</option>
-                            <option id="13.00">13.00</option>
-                            <option id="14.00">14.00</option>
-                            <option id="15.00">15.00</option>
-                            <option id="16.00">16.00</option>
-                            <option id="17.00">17.00</option>
-                            <option id="18.00">18.00</option>
-                            <option id="19.00">19.00</option>
-                            <option id="20.00">20.00</option>
-                            <option id="21.00">21.00</option>
-                        </select>
-                        <label for="contact-name">TO</label>
-                        <select id="to">
-                            <option id="11">11.00</option>
-                            <option id="12">12.00</option>
-                            <option id="13">13.00</option>
-                            <option id="14">14.00</option>
-                            <option id="15">15.00</option>
-                            <option id="16">16.00</option>
-                            <option id="17">17.00</option>
-                            <option id="18">18.00</option>
-                            <option id="19">19.00</option>
-                            <option id="20">20.00</option>
-                            <option id="21">21.00</option>
-                            <option id="22">22.00</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-email">PEOPLE</label>
-                        <select id="people">
-                            <option id="1">1</option>
-                            <option id="2">2</option>
-                            <option id="3">3</option>
-                            <option id="4">4</option>
-                            <option id="5">5</option>
-                            <option id="6">6</option>
-                            <option id="7">7</option>
-                            <option id="8">8</option>
-                            <option id="9">9</option>
-                            <option id="10">10</option>
-                            <option id="11">11</option>
-                            <option id="12">12</option>
-                            <option id="13">13</option>
-                            <option id="14">14</option>
-                            <option id="15">15</option>
-                            <option id="16">16</option>
-                            <option id="17">17</option>
-                            <option id="18">18</option>
-                            <option id="19">19</option>
-                            <option id="20">20</option>
-                            <option id="21">21</option>
-                            <option id="22">22</option>
-                            <option id="23">23</option>
-                            <option id="24">24</option>
-                            <option id="25">25</option>
-                            <option id="26">26</option>
-                            <option id="27">27</option>
-                            <option id="28">28</option>
-                            <option id="29">29</option>
-                            <option id="30">30</option>
-                            <option id="31">31</option>
-                            <option id="32">32</option>
-                            <option id="33">33</option>
-                            <option id="34">34</option>
-                            <option id="35">35</option>
-                            <option id="36">36</option>
-                            <option id="37">37</option>
-                            <option id="38">38</option>
-                            <option id="39">39</option>
-                            <option id="40">40</option>
-                        </select>
-                    </div>
-
-
-
-                    <button onclick="booking()" type="button" id=""book" class="btn">book</button>
-                </form>
-            </div>
-
-        </div>
-    </div>
+    </select>
 </div>
 
-<!-- Footer -->
+
+<button onclick="location.href='confirmbooking.html'" type="submit" class="btn">book</button>
+</body>
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 footer-box wow fadeInUp">
-                <h4>About Us</h4>
+            <div class="col-sm-4 footer-box wow fadeInUp">
+                <h4>Who we are</h4>
                 <div class="footer-box-text">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.
+                        B2S is a central group company established in 2011.
+                        No.1 Thailand lifestyle bookstore offering curated books and lifestyle merchandises for every lifestyle.
                     </p>
-                    <p><a href="login.html">Read more...</a></p>
+
                 </div>
             </div>
-            <div class="col-sm-3 footer-box wow fadeInDown">
-                <h4>Email Updates</h4>
-                <div class="footer-box-text footer-box-text-subscribe">
-                    <p>Enter your email and you'll be one of the first to get new updates:</p>
-                    <form role="form" action="assets/subscribe.php" method="post">
-                        <div class="form-group">
-                            <label class="sr-only" for="subscribe-email">Email address</label>
-                            <input type="text" name="email" placeholder="Email..." class="subscribe-email" id="subscribe-email">
-                        </div>
-                        <button type="submit" class="btn">Subscribe</button>
-                    </form>
-                    <p class="success-message"></p>
-                    <p class="error-message"></p>
+            <div class="col-sm-4 footer-box wow fadeInUp">
+                <h4>Our vision</h4>
+                <div class="footer-box-text">
+                    <p>
+                        To be the most outstanding inspiration and thoughtful brand in Thailand. To leverage knowledge and creativity in arts and creative segment among thai communities.
+                    </p>
+
                 </div>
             </div>
-            <div class="col-sm-3 footer-box wow fadeInUp">
-                <h4>Flickr Photos</h4>
-                <div class="footer-box-text flickr-feed"></div>
-            </div>
-            <div class="col-sm-3 footer-box wow fadeInDown">
-                <h4>Contact Us</h4>
+
+            <div class="col-sm-4 footer-box wow fadeInUp">
+                <h4>Follow us</h4>
                 <div class="footer-box-text footer-box-text-contact">
-                    <p><i class="fa fa-map-marker"></i> Address: Via Principe Amedeo 9, 10100, Torino, TO, Italy</p>
-                    <p><i class="fa fa-phone"></i> Phone: 0039 333 12 68 347</p>
-                    <p><i class="fa fa-user"></i> Skype: Andia_Agency</p>
-                    <p><i class="fa fa-envelope"></i> Email: <a href="">contact@andia.co.uk</a></p>
+                    <p><i class="fa fa-facebook"></i> ThinkSpaceB2S</p>
                 </div>
             </div>
+
+
+
+
         </div>
-        <div class="row">
-            <div class="col-sm-12 wow fadeIn">
-                <div class="footer-border"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-7 footer-copyright wow fadeIn">
-                <p>Copyright 2012 Andia - All rights reserved. Template by <a href="http://azmind.com">Azmind</a>.</p>
-            </div>
-            <div class="col-sm-5 footer-social wow fadeIn">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-            </div>
-        </div>
+
     </div>
 </footer>
 
