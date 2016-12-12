@@ -150,7 +150,6 @@
                 <div class="btn-group-vertical" style="float:right ;" >
                     <button style=" background-color:  #4c67c0;"type="button" onclick="location.href='register.html'" class="btn">Edit profile</button>
                 <button style=" background-color:  #4c67c0;" type="button" onclick="location.href='booking.html'" class="btn">booking</button>
-                    <button style=" background-color:  #4c67c0;" type="button"  class="btn">cancel booking</button>
                     <button style=" background-color:  #4c67c0;" type="button" onclick="signout()" class="btn">log out</button>
 
 
@@ -163,18 +162,21 @@
         	<div class="container">
 	            <div class="row">
 	                <h3 id="points"> Point : </h3>
-                     <h3> Booking information : </h3>
-
-
+                    <p id="score"> </p>
+                    <div>
+                    <h3> Booking information : </h3>
+                        <div id="info"></div>
+                    <button style=" background-color:  #4c67c0;" type="button"  class="btn">cancel booking</button>
+                    </div>
 
                     <div class="col-sm-7 contact-form wow fadeInLeft">
 	                  
 	              
                         <div class="form-group">
-                                <label for="contact-name">For staff</label>
-                                <input type="text" name="name" placeholder="For staff.." class="contact-name" id="contact-name">
+                                <label >For staff</label>
+                                <input type="text" name="name" placeholder="For staff.." class="contact-name" id="inputcode">
                             </div>
-                            <button  style=" background-color:  #4c67c0;" type="submit" class="btn">submit</button>
+                            <button  id="collectpoint" onclick="collectPoint()"style=" background-color:  #4c67c0;" type="submit" class="btn">submit</button>
 	                </div>
 	               
 	            </div>
@@ -222,6 +224,53 @@
 
         <!-- Javascript -->
         <script >
+            var info = $('#info');
+            var allInfo="";
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    firebase.database().ref("users/"+user.uid+"/booking/").once('value',function(snap){
+                        for( var data in snap.val()) {
+                            console.log(data);
+                            allInfo += "Date(mmddyyyy):  "+data;
+                            firebase.database().ref("users/" + user.uid + "/booking/" + data).once('value', function (snap1){
+
+                            allInfo += ",    number of user: "+snap1.val().numUser + "<br>";
+                            });
+                        }
+//                        console.log(info);
+                        info.append(allInfo);
+                    });
+                } else {
+
+                }
+            });
+            var nname = $('#name');
+            var surname = $('#surname');
+            var score =$('#score');
+            var inputcode=$('#inputcode');
+            var collectpoint=$('#collectpoint');
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    firebase.database().ref("users/"+user.uid).once('value',function(snap){
+                        nname.append(snap.val()["name"]);
+                        surname.append(snap.val()["surname"]);
+                        score.html(snap.val()["point"]);
+                    });
+                }
+            });
+
+            function upload() {
+                console.log("uppic");
+                var img = $('#profile');
+                //firebase.storage().ref("ProfilePic/"+firebase.auth().currentUser.uid+".jpg").put
+            }
+
+            function signout(){
+                window.alert("Out");
+                firebase.auth().signOut();
+                window.location.href="login.html";
+            }
             function loginOrProfile() {
                 firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
@@ -232,6 +281,31 @@
                         window.location.href="login.html";
                     }
                 });
+            }
+            var points1;
+
+
+            function collectPoint() {
+                var checking =(inputcode.val()==="staff1234");
+                var intpoint=0;
+                console.log(inputcode.val());
+                if (checking) {
+
+                    firebase.database().ref("users/" + firebase.auth().currentUser.uid + "/point/").once('value', function (snap) {
+                        points1 = snap.val();
+                        console.log(points1);
+                        intpoint=parseInt(points1);
+                        firebase.database().ref("users/" + firebase.auth().currentUser.uid).update({
+                            point: intpoint+5
+
+                        });
+                    }).then(function () {
+                        window.location.href="profile.html";
+                    });
+
+
+
+                }else{console.log("nopint");}
             }
         </script>
         <script src="assets/js/jquery-1.11.1.min.js"></script>
@@ -248,32 +322,9 @@
         <script src="assets/js/jquery.ui.map.min.js"></script>
         <script src="assets/js/scripts.js"></script>
     <script>
-        var nname = $('#name');
-        var surname = $('#surname');
-        var points =$('#points');
 
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // User is signed in.
-                firebase.database().ref("users/"+user.uid).once('value',function(snap){
-                    nname.append(snap.val()["name"]);
-                    surname.append(snap.val()["surname"]);
-                    points.append(snap.val()["point"]);
-                });
-            }
-        });
 
-        function upload() {
-            console.log("uppic");
-            var img = $('#profile');
-            //firebase.storage().ref("ProfilePic/"+firebase.auth().currentUser.uid+".jpg").put
-        }
 
-        function signout(){
-            window.alert("Out");
-            firebase.auth().signOut();
-            window.location.href="login.html";
-        }
     </script>
 
     </body>
