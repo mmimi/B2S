@@ -185,7 +185,7 @@
      var email = $('#email');
      var password = $('#password');
      var login = $('login');
-
+//
      function pleaselogin() {
          firebase.auth().signInWithEmailAndPassword(email.val(),password.val()).catch(function(error){
              email.val('');
