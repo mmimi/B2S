@@ -214,6 +214,7 @@
                 var mobile = $('#mobile');
                 var register = $('#register');
                 var check = true;
+                var a;
 //
             function registered() {
                 console.log("registered");
@@ -226,7 +227,7 @@
                     window.alert(error.message);
 
                 }).then(function () {
-if(check){
+                    if(check){
                     console.log("save");
                     var database = firebase.database();
                     firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
@@ -234,9 +235,14 @@ if(check){
                         password: password.val(),
                         name: namename.val(),
                         surname: surname.val(),
-                        mobile: mobile.val()
+                        mobile: mobile.val(),
+                        point: "0"
+                    },function(e){
+                        if(e==null){
+                            window.location.href="profile.html";
+                        }
                     });
-                    window.location.href="profile.html";
+
                 }
                 });
 
