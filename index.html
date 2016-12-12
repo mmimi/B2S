@@ -106,7 +106,7 @@
                     <a href="contact.html"><i class="fa fa-envelope"></i><br>Contact</a>
                 </li>
                 <li>
-                    <a href="login.html"><i class="fa fa-user"></i><br>Login</a>
+                    <a onclick="loginOrProfile()"><i class="fa fa-user"></i><br>Login</a>
                 </li>
 
 
@@ -382,7 +382,18 @@
 </footer>
 
 
-<script>   
+<script>
+    function loginOrProfile() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                window.location.href="profile.html";
+            } else {
+                // No user is signed in.
+                window.location.href="login.html";
+            }
+        });
+    }
     jQuery(function ($) { 
     var $username = $('#username'); 
     var $password = $('#pass'); 

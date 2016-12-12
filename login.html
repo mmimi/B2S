@@ -22,7 +22,8 @@
             storageBucket: "b2sthinkspace-dcda8.appspot.com",
             messagingSenderId: "526906895408"
         };
-        firebase.initializeApp(config);       </script>
+        firebase.initializeApp(config);
+        </script>
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
@@ -182,15 +183,7 @@
         <script src="assets/js/jquery.ui.map.min.js"></script>
         <script src="assets/js/scripts.js"></script>
  <script>
-     firebase.auth().onAuthStateChanged(function(user) {
-         if (user) {
-             // User is signed in.
-             window.location.href="profile.html";
-         } else {
-             // No user is signed in.
-             window.alert("Please Login");
-         }
-     });
+
 
      var email = $('#email');
      var password = $('#password');

@@ -7,6 +7,22 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Think Space B2S</title>
+        <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script> 
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script> 
+        <script src="/socket.io/socket.io.js"></script> 
+        <script>         // Initialize Firebase 
+        var config = {
+            apiKey: "AIzaSyA_rWI-uQ5JyTo2QVUJb2ReO3j1B8hAriU",
+            authDomain: "b2sthinkspace-dcda8.firebaseapp.com",
+            databaseURL: "https://b2sthinkspace-dcda8.firebaseio.com",
+            storageBucket: "b2sthinkspace-dcda8.appspot.com",
+            messagingSenderId: "526906895408"
+        };
+        firebase.initializeApp(config);       </script>
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
@@ -64,7 +80,7 @@
                             <a href="contact.html"><i class="fa fa-envelope"></i><br>Contact</a>
                         </li>
                         <li class="active">
-                            <a href="login.html"><i class="fa fa-user"></i><br>Login</a>
+                            <a onclick="loginOrProfile()"><i class="fa fa-user"></i><br>Login</a>
                         </li>
                         
                         
@@ -94,18 +110,20 @@
                 <div class="col-sm-6 contact-form wow fadeInLeft">
 
 
-                            <h3> Name : </h3>
-                            <h3> Surname : </h3>
+                            <h3 id="name" >Name : </h3>
+                    <!--<p id="name"></p>-->
+                            <h3 id="surname"> Surname : </h3>
 
 
                 </div>
             </div>
 <div style="margin-right: 20px;">
                 <div class="btn-group-vertical" style="float:right ;" >
-                    <button  style=" background-color:  #4c67c0;"  type="button" onclick="location.href='register.html'" class="btn">Edit profile</button>
-                <button  style=" background-color:  #4c67c0;"  type="button" onclick="location.href='booking.html'" class="btn">booking</button>
-                    <button  style=" background-color:  #4c67c0;" type="button"  class="btn">cancel booking</button>
-                <button  style=" background-color:  #4c67c0;" type="button" onclick="location.href='index.html'" class="btn">log out</button>
+                    <button style=" background-color:  #4c67c0;"type="button" onclick="location.href='register.html'" class="btn">Edit profile</button>
+                <button style=" background-color:  #4c67c0;" type="button" onclick="location.href='booking.html'" class="btn">booking</button>
+                    <button style=" background-color:  #4c67c0;" type="button"  class="btn">cancel booking</button>
+                    <button style=" background-color:  #4c67c0;" type="button" onclick="signout()" class="btn">log out</button>
+
 
                 </div>
             </div>
@@ -115,7 +133,7 @@
         <div class="contact-us-container">
         	<div class="container">
 	            <div class="row">
-	                <h3> Point : </h3>
+	                <h3 id="points"> Point : </h3>
                      <h3> Booking information : </h3>
                     <button type="button"  class="btn">cancel booking</button>
 
@@ -174,6 +192,19 @@
         </footer>
 
         <!-- Javascript -->
+        <script >
+            function loginOrProfile() {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        // User is signed in.
+                        window.location.href="profile.html";
+                    } else {
+                        // No user is signed in.
+                        window.location.href="login.html";
+                    }
+                });
+            }
+        </script>
         <script src="assets/js/jquery-1.11.1.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/bootstrap-hover-dropdown.min.js"></script>
@@ -188,12 +219,25 @@
         <script src="assets/js/jquery.ui.map.min.js"></script>
         <script src="assets/js/scripts.js"></script>
     <script>
-        //var logout = $('#email');
+        var nname = $('#name');
+        var surname = $('#surname');
+        var points =$('#points');
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                firebase.database().ref("users/"+user.uid).once('value',function(snap){
+                    nname.append(snap.val()["name"]);
+                    surname.append(snap.val()["surname"]);
+                    points.append(snap.val()["point"]);
+                });
+            }
+        });
 
         function signout(){
             window.alert("Out");
             firebase.auth().signOut();
-            window.location.href="index.html";
+            window.location.href="login.html";
         }
     </script>
 

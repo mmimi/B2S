@@ -7,6 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Think Space B2S</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script> 
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script> 
+    <script src="/socket.io/socket.io.js"></script> 
+    <script>         // Initialize Firebase 
+    var config = {
+        apiKey: "AIzaSyA_rWI-uQ5JyTo2QVUJb2ReO3j1B8hAriU",
+        authDomain: "b2sthinkspace-dcda8.firebaseapp.com",
+        databaseURL: "https://b2sthinkspace-dcda8.firebaseio.com",
+        storageBucket: "b2sthinkspace-dcda8.appspot.com",
+        messagingSenderId: "526906895408"
+    };
+    firebase.initializeApp(config);
+    </script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans">
@@ -65,7 +83,7 @@
                     <a href="contact.html"><i class="fa fa-envelope"></i><br>Contact</a>
                 </li>
                 <li class="active">
-                    <a href="login.html" ><i class="fa fa-user"></i><br>Login</a>
+                    <a onclick="loginOrProfile()" ><i class="fa fa-user"></i><br>Login</a>
                 </li>
 
 
@@ -88,7 +106,7 @@
 <br>
 <p>Date: <input type="text" id="datepicker"></p>
 <div class="form-group">
-    <label for="contact-email">PEOPLE</label>
+    <label >PEOPLE</label>
     <select>
         <option id="1">1</option>
         <option id="2">2</option>
@@ -167,6 +185,19 @@
 
 
 <!-- Javascript -->
+<script >
+    function loginOrProfile() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                window.location.href="profile.html";
+            } else {
+                // No user is signed in.
+                window.location.href="login.html";
+            }
+        });
+    }
+</script>
 <script src="assets/js/jquery-1.11.1.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/js/bootstrap-hover-dropdown.min.js"></script>

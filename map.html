@@ -7,6 +7,23 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Think Space B2S</title>
+        <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script> 
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script> 
+        <script src="/socket.io/socket.io.js"></script> 
+        <script>         // Initialize Firebase 
+        var config = {
+            apiKey: "AIzaSyA_rWI-uQ5JyTo2QVUJb2ReO3j1B8hAriU",
+            authDomain: "b2sthinkspace-dcda8.firebaseapp.com",
+            databaseURL: "https://b2sthinkspace-dcda8.firebaseio.com",
+            storageBucket: "b2sthinkspace-dcda8.appspot.com",
+            messagingSenderId: "526906895408"
+        };
+        firebase.initializeApp(config);
+        </script>
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
@@ -62,7 +79,7 @@
                             <a href="contact.html"><i class="fa fa-envelope"></i><br>Contact</a>
                         </li>
                         <li>
-                            <a href="login.html"><i class="fa fa-user"></i><br>Login</a>
+                            <a onclick="loginOrProfile()"><i class="fa fa-user"></i><br>Login</a>
                         </li>
                         
                         
@@ -85,7 +102,7 @@
 
             </div>
             </div>
-        </div>
+
 
 
         <!-- Contact Us -->
@@ -169,7 +186,19 @@
 
             </div>
         </footer>
-        <!-- Javascript -->
+        <!-- Javascript --><script >
+        function loginOrProfile() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    window.location.href="profile.html";
+                } else {
+                    // No user is signed in.
+                    window.location.href="login.html";
+                }
+            });
+        }
+    </script>
         <script src="assets/js/jquery-1.11.1.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/bootstrap-hover-dropdown.min.js"></script>
@@ -183,6 +212,7 @@
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         <script src="assets/js/jquery.ui.map.min.js"></script>
         <script src="assets/js/scripts.js"></script>
+        </div>
         </div>
     </body>
 
