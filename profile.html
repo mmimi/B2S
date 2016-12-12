@@ -11,6 +11,7 @@
         <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script> 
         <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script> 
         <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-storage.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script> 
         <script src="http://code.jquery.com/jquery-latest.min.js"></script> 
         <script src="/socket.io/socket.io.js"></script> 
@@ -129,6 +130,10 @@
 
                 reader.onload = function (e) {
                 $('.profile-pic').attr('src', e.target.result);
+                    var metadata = {
+                        contentType: 'image/jpeg'
+                    };
+                    window.alert(typeof e.target.result);
                 }
 
                 reader.readAsDataURL(input.files[0]);
@@ -150,6 +155,33 @@
                 <div class="btn-group-vertical" style="float:right ;" >
                     <button style=" background-color:  #4c67c0;"type="button" onclick="location.href='register.html'" class="btn">Edit profile</button>
                 <button style=" background-color:  #4c67c0;" type="button" onclick="location.href='booking.html'" class="btn">booking</button>
+                    <button style=" background-color:  #4c67c0;" type="button"  class="btn">cancel booking</button>
+
+                    <form>
+                        Select your booking:
+                        <br>
+                        <select id="mySelect" size="10">
+                        </select>
+                    </form>
+                    <br>
+
+                    <button onclick="myFunction()">Remove selected booking</button>
+
+                    <script>
+                        var select = $('mySelect');
+                        firebase.auth().onAuthStateChanged(function (user) {
+                            firebase.database().ref("users/"+user.uid+"booking").once('value',function (snap) {
+                                for(var date in snap.val()){
+                                    select.add(date);
+                                    window.alert(date);
+                                }
+                            })
+                        })
+                        function myFunction() {
+                            var x = document.getElementById("mySelect");
+                            x.remove(x.selectedIndex);
+                        }
+                    </script>
                     <button style=" background-color:  #4c67c0;" type="button" onclick="signout()" class="btn">log out</button>
 
 
@@ -322,9 +354,22 @@
         <script src="assets/js/jquery.ui.map.min.js"></script>
         <script src="assets/js/scripts.js"></script>
     <script>
+        var nname = $('#name');
+        var surname = $('#surname');
+        var points =$('#points');
 
 
+        function upload() {
+            console.log("uppic");
+            var img = $('#profile');
+            //firebase.storage().ref("ProfilePic/"+firebase.auth().currentUser.uid+".jpg").put
+        }
 
+        function signout(){
+            window.alert("Out");
+            firebase.auth().signOut();
+            window.location.href="login.html";
+        }
     </script>
 
     </body>
