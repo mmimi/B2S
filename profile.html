@@ -161,6 +161,16 @@
                         Select your booking:
                         <br>
                         <select id="mySelect" size="10">
+                            <!--<option id="0"></option>-->
+                            <!--<option id="1"></option>-->
+                            <!--<option id="2"></option>-->
+                            <!--<option id="3"></option>-->
+                            <!--<option id="4"></option>-->
+                            <!--<option id="5"></option>-->
+                            <!--<option id="6"></option>-->
+                            <!--<option id="7"></option>-->
+                            <!--<option id="8"></option>-->
+                            <!--<option id="9"></option>-->
                         </select>
                     </form>
                     <br>
@@ -168,18 +178,40 @@
                     <button onclick="myFunction()">Remove selected booking</button>
 
                     <script>
-                        var select = $('mySelect');
+                        var select1 = document.getElementById('mySelect');
+                        console.log("LOL");
                         firebase.auth().onAuthStateChanged(function (user) {
-                            firebase.database().ref("users/"+user.uid+"booking").once('value',function (snap) {
+                            firebase.database().ref("users/"+user.uid+"/booking").once('value',function (snap) {
                                 for(var date in snap.val()){
-                                    select.add(date);
-                                    window.alert(date);
+                                    var opt=document.createElement('option');
+                                    opt.value = date;
+                                     opt.innerHTML=date;
+                                     console.log(opt.value);
+                                    console.log(opt.innerHTML);
+                                     select1.appendChild(opt);
+
                                 }
                             })
                         })
                         function myFunction() {
+                            var numUserDel=0;
+                            var oldNum=0;
                             var x = document.getElementById("mySelect");
+                            var opt=x.options[x.selectedIndex];
                             x.remove(x.selectedIndex);
+                            firebase.auth().onAuthStateChanged(function (user) {
+                                firebase.database().ref("users/"+user.uid+"/booking/"+opt.value).once('value',function (snap) {
+                                    numUserDel=snap.val().numUser;
+                                    firebase.database().ref("users/"+user.uid+"/booking/"+opt.value).remove();
+                                    firebase.database().ref("Room/"+opt.value).once('value',function(snap1){
+                                        oldNum=snap1.val().numUser;
+                                        console.log(oldNum);
+                                        firebase.database().ref("Room/"+opt.value).update({
+                                            numUser : oldNum-numUserDel
+                                        })
+                                    })
+                                })
+                            })
                         }
                     </script>
                     <button style=" background-color:  #4c67c0;" type="button" onclick="signout()" class="btn">log out</button>
@@ -245,10 +277,6 @@
                             <a href="https://www.facebook.com/thinkspaceb2s"><i class="fa fa-facebook"></i> ThinkSpaceB2S</a>
                         </div>
                     </div>
-
-
-
-
                 </div>
 
             </div>
@@ -258,6 +286,7 @@
         <script >
             var info = $('#info');
             var allInfo="";
+            var myList=$('myList');
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     firebase.database().ref("users/"+user.uid+"/booking/").once('value',function(snap){

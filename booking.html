@@ -210,26 +210,37 @@
         var date = datepicker.val().toString();
         var newDate =date.replace("/","");
         newDate = newDate.replace("/","");
+        var number = parseInt(people.val());
         firebase.database().ref("Room/"+newDate).once('value',function (snap) {
             if(snap.val() != null){
-                if(snap.val()["numUser"]+people.val()<=30){
-                    firebase.database().ref("Room/"+newDate).set({
-                       numUser :  snap.val()["numUser"]+people.val()
+                if(snap.val()["numUser"]+number<=30){
+                    firebase.database().ref("Room/"+newDate).update({
+                       numUser :  snap.val()["numUser"]+number
                     });
-                    firebase.database().ref("users/"+firebase.auth().currentUser.uid+"/booking/"+newDate).set({
-                         numUser : people.val(),
-                         date : newDate
-                    });
-                    window.location.href='profile.html';
+                    firebase.database().ref("users/"+firebase.auth().currentUser.uid+"/booking/"+newDate).once('value',function(snapp,e){
+                        console.log(e);
+                        if(snapp.val()!=null){
+                            firebase.database().ref("users/"+firebase.auth().currentUser.uid+"/booking/"+newDate).update({
+                                numUser : snapp.val()["numUser"]+number
+                            });
+                        }else{
+                            firebase.database().ref("users/"+firebase.auth().currentUser.uid+"/booking/"+newDate).set({
+                                numUser : number,
+                                date : newDate
+                            });
+                        }
+                    }).then(function () {
+                        window.location.href='profile.html';
+                    })
                 }else{
                     window.alert("All seats are occupied for the chosen date. There might be available seat left for walk-in, please check with our staff. Sorry for inconvenience")
                 }
             }else{
                 firebase.database().ref("Room/"+newDate).set({
-                    numUser : people.val()
+                    numUser : number
                 });
                 firebase.database().ref("users/"+firebase.auth().currentUser.uid+"/booking/"+newDate).set({
-                    numUser : people.val(),
+                    numUser : number,
                     date : newDate
                 });
                 window.location.href='profile.html';
