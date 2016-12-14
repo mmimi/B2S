@@ -136,7 +136,7 @@
 
 
 
-                    <button style=" background-color:  #4c67c0;" type="button" class="btn" id="register"  onclick= "updated()">update</button>
+                    <button style=" background-color:  #4c67c0;" type="button" class="btn" id="update"  onclick= "updated()">update</button>
                 </form>
             </div>
 
@@ -210,50 +210,26 @@
         });
     }
 </script>
-
 <script>
-    var email = $('#email');
-    var password = $('#password');
-    var namename = $('#name');
-    var surname = $('#surname');
-    var mobile = $('#mobile');
-    var register = $('#register');
-    var check = true;
-    var a;
-    //
-    function registered() {
-        console.log("registered");
-        // socket.emit('login',$username.val() ,"+" ,$password.val());
-        firebase.auth().createUserWithEmailAndPassword(email.val(),password.val()).catch(function (error) {
-            check=false;
-            email.val('');
-            password.val('');
-            console.log(check);
-            window.alert(error.message);
-
-        }).then(function () {
-            if(check){
-                console.log("save");
-                var database = firebase.database();
-                firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-                    email: email.val(),
-                    password: password.val(),
-                    name: namename.val(),
-                    surname: surname.val(),
-                    mobile: mobile.val(),
-                    point: "0"
-                },function(e){
-                    if(e==null){
-                        window.location.href="profile.html";
-                    }
-                });
-
-            }
+    var nametext = $('#name');
+    var surnametext = $('#surname');
+    var mobiletext = $('#mobile');
+    var updatetext = $('#update');
+    function updated() {
+        firebase.database().ref("users/" + firebase.auth().currentUser.uid).update({
+            name: nametext.val(),
+            surname: surnametext.val(),
+            mobile: mobiletext.val()
+        })
+            .then(function () {
+            window.location.href="profile.html";
         });
 
-
     }
-</script> 
+
+
+
+</script>
 
 </body>
 
